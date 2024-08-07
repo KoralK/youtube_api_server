@@ -4,7 +4,7 @@ const NodeCache = require('node-cache');
 const app = express();
 const port = process.env.PORT || 3000;
 
-const API_KEY = 'YOUR_API_KEY';
+const API_KEY = process.env.API_KEY;
 const cache = new NodeCache({ stdTTL: 600, checkperiod: 120 }); // Cache TTL 10 minutes
 
 app.get('/trending-videos', async (req, res) => {
