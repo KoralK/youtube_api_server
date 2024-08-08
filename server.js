@@ -6,7 +6,7 @@ const NodeCache = require('node-cache');
 const app = express();
 const port = process.env.PORT || 3000;
 
-const API_KEY = process.env.API_KEY; // Ensure this is correctly set
+const API_KEY = process.env.API_KEY;
 const cache = new NodeCache({ stdTTL: 600, checkperiod: 120 }); // Cache TTL 10 minutes
 
 app.get('/trending-videos', async (req, res) => {
@@ -14,10 +14,12 @@ app.get('/trending-videos', async (req, res) => {
 
   // Check if data is in cache
   if (cache.has(cacheKey)) {
+    console.log('Serving from cache');
     return res.json(cache.get(cacheKey));
   }
 
   try {
+    console.log('Fetching from YouTube API');
     const response = await axios.get('https://www.googleapis.com/youtube/v3/videos', {
       params: {
         part: 'snippet,contentDetails,statistics',
