@@ -1,10 +1,12 @@
+require('dotenv').config();
+
 const express = require('express');
 const axios = require('axios');
 const NodeCache = require('node-cache');
 const app = express();
 const port = process.env.PORT || 3000;
 
-const API_KEY = process.env.API_KEY; // Use the environment variable
+const API_KEY = process.env.API_KEY; // Ensure this is correctly set
 const cache = new NodeCache({ stdTTL: 600, checkperiod: 120 }); // Cache TTL 10 minutes
 
 app.get('/trending-videos', async (req, res) => {
